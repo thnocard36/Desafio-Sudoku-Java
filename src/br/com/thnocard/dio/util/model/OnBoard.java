@@ -13,7 +13,7 @@ public class OnBoard {
 
     private final List<List<Spaces>> spacesList;
 
-    public OnBoard(List<List<Spaces>> spacesList) {
+    public OnBoard(final List<List<Spaces>> spacesList) {
         this.spacesList = spacesList;
     }
 
@@ -39,7 +39,26 @@ public class OnBoard {
         }
 
         return spacesList.stream().flatMap(Collection::stream)
-                .anyMatch(spaces -> nonNull(spaces.getActualStage()) && !spaces.getActualStage().equals(spaces.getExpectedStage()));
+                .anyMatch(spaces -> nonNull(spaces.getActualStage()) && !spaces.getActualStage()
+                        .equals(spaces.getExpectedStage()));
+    }
+
+    public boolean changeValues(final int col, final int row, final Integer value) {
+        var spaces = spacesList.get(col).get(row);
+        if(spaces.isFixed()) {
+            return false;
+        }
+
+        spaces.setActualStage(value);
+        return true;
+    }
+
+    public void resetSpace() {
+        spacesList.forEach(coht -> coht.forEach(Spaces::clearActualStage));
+    }
+
+    public boolean gameFinishIs() {
+        return !hasErrors() && getStatusMatch().equals(COMPLETE_MATCH);
     }
 
 }
