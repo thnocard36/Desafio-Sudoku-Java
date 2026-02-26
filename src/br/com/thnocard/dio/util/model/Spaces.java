@@ -18,12 +18,13 @@ public class Spaces {
     public Integer getActualStage() {
         return actualStage;
     }
+
     public void setActualStage(Integer actualStage) {
         if(fixedStage) return;
         this.actualStage = actualStage;
     }
 
-    public void clearActualStage() {
+    public void clearSpaces() {
         setActualStage(null);
     }
 

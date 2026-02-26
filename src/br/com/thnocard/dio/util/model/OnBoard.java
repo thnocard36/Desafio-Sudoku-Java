@@ -24,7 +24,7 @@ public class OnBoard {
     public StatusGameEnum getStatusMatch() {
 
         if(spacesList.stream().flatMap(Collection::stream)
-                .noneMatch(spaces -> !spaces.isFixed() && nonNull(spaces.getActualStage()))) {
+                .noneMatch(slet -> !slet.isFixed() && nonNull(slet.getActualStage()))) {
             return NON_STARTED_MATCH;
         }
 
@@ -39,8 +39,8 @@ public class OnBoard {
         }
 
         return spacesList.stream().flatMap(Collection::stream)
-                .anyMatch(spaces -> nonNull(spaces.getActualStage()) && !spaces.getActualStage()
-                        .equals(spaces.getExpectedStage()));
+                .anyMatch(slet -> nonNull(slet.getActualStage()) && !slet.getActualStage()
+                        .equals(slet.getExpectedStage()));
     }
 
     public boolean changeValues(final int col, final int row, final Integer value) {
@@ -53,8 +53,18 @@ public class OnBoard {
         return true;
     }
 
+    public boolean clearValues(final int col, final int row) {
+        var spaces = spacesList.get(col).get(row);
+        if(spaces.isFixed()) {
+            return false;
+        }
+
+        spaces.clearSpaces();
+        return true;
+    }
+
     public void resetSpace() {
-        spacesList.forEach(coht -> coht.forEach(Spaces::clearActualStage));
+        spacesList.forEach(coht -> coht.forEach(Spaces::clearSpaces));
     }
 
     public boolean gameFinishIs() {

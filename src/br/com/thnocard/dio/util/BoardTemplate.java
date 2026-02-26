@@ -6,16 +6,6 @@ import java.util.List;
 
 public class BoardTemplate {
 
-    private final List<List<Spaces>> spaces;
-
-    public BoardTemplate(List<List<Spaces>> spaces) {
-        this.spaces = spaces;
-    }
-
-    public List<List<Spaces>> getSpaces() {
-        return spaces;
-    }
-
     public final static String BOARD_SUDOKU =
             """
             *************************************************************************************
