@@ -1,7 +1,8 @@
+package br.com.thnocard.dio.util;
+
 import br.com.thnocard.dio.util.model.OnBoard;
 import br.com.thnocard.dio.util.model.Spaces;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
