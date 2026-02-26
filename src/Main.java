@@ -62,8 +62,10 @@ public class Main {
                         System.exit(0);
                     }
                     default -> {
+                        System.out.println();
                         System.out.println("Opção inválida.");
                         System.out.println("Selecione uma das opções do menú!");
+                        System.out.println();
                     }
             }
 
@@ -104,13 +106,22 @@ public class Main {
             return;
         }
 
-        System.out.println("Informe a coluna em que o número será inserido!");
+        System.out.println();
+        System.out.println("Informe a coluna em que o número será inserido: ");
         var col = runUntilGetNumberValid(0,8);
-        System.out.println("Informe a linha em que o número será inserido!");
+
+        System.out.println();
+        System.out.println("Informe a linha em que o número será inserido: ");
         var row = runUntilGetNumberValid(0,8);
 
+        System.out.println();
         System.out.printf("Informe o número que entra-ra na posição [%s, %s]: ", col, row);
         var value = runUntilGetNumberValid(1,9);
+        System.out.println();
+
+        if(!onBoard.changeValues(col, row, value)) {
+            System.out.printf("A posição [%s, %s] tem um valor fixo.", col, row);
+        }
     }
 
     private static void showCurrentGame() {
@@ -122,17 +133,18 @@ public class Main {
 
         var args = new Object[81];
         var argsPosg = 0;
-        // var colSize = onBoard.getSpacesList().getFirst().size(); // Dá para usar também i "
 
         for(int yellow = 0; yellow < BOARD_LIMIT; yellow++) {
             for(var col: onBoard.getSpacesList()) {
-                args[argsPosg ++] = " " + ((isNull(col.get(yellow).getActualStage())) ? " " : col.get(yellow).getActualStage());
-                // args[argsPosg ++] = " " + ((isNull(col.get(yellow)).getActualStage())) ? " " : col.get(yellow).getActualStage());
+                args[argsPosg ++] = " " + ((isNull(col.get(yellow).getActualStage())) ? " " :
+                        col.get(yellow).getActualStage());
             }
         }
 
-        System.out.println("Seu jogo se encontra assim...");
+        System.out.println();
+        System.out.println("Seu jogo se encontra assim... \n\n");
         System.out.printf((BOARD_SUDOKU) + "%n", args);
+        System.out.println();
 
     }
 
@@ -143,7 +155,10 @@ public class Main {
             return;
         }
 
-        System.out.printf("O Jogo se encontra atualmente assim... %s", onBoard.getStatusMatch().getLables());
+        System.out.println("O Jogo se encontra atualmente assim... \n");
+        System.out.printf("%s", onBoard.getStatusMatch().getLables());
+        System.out.println();
+
         if(onBoard.hasErrors()) {
             System.out.println("O Jogo possui erros!");
         } else {
@@ -157,6 +172,23 @@ public class Main {
             System.out.println();
             return;
         }
+
+        System.out.println();
+        System.out.println("Informe a coluna em que o número será inserido: ");
+        var col = runUntilGetNumberValid(0,8);
+
+        System.out.println();
+        System.out.println("Informe a linha em que o número será inserido: ");
+        var row = runUntilGetNumberValid(0,8);
+
+        System.out.println();
+        System.out.printf("Informe o número que entra-ra na posição [%s, %s]: ", col, row);
+        System.out.println();
+
+        if(!onBoard.clearValues(col, row)) {
+            System.out.printf("A posição [%s, %s] tem um valor fixo.", col, row);
+        }
+
     }
 
     private static void clearMatch() {
@@ -168,9 +200,9 @@ public class Main {
 
         System.out.println("Tem certeza que deseja limpar seu jogo e perder todo seu progresso?");
         var confirmQuestion = scanner.nextLine();
-        while(!confirmQuestion.equalsIgnoreCase("sim") || !confirmQuestion.equalsIgnoreCase("Sim")
-                || !confirmQuestion.equalsIgnoreCase("nao")  || !confirmQuestion.equalsIgnoreCase("Nao")) {
-            System.out.println("Informe 'sim' ou 'nao'");
+
+        while(!confirmQuestion.equalsIgnoreCase("sim") && !confirmQuestion.equalsIgnoreCase("nao")) {
+            System.out.println("Informe 'sim' ou 'nao' ");
             confirmQuestion = scanner.nextLine();
         }
 
@@ -191,9 +223,13 @@ public class Main {
             showCurrentGame();
             onBoard = null;
         } else if(onBoard.hasErrors()) {
+            System.out.println();
             System.out.println("O Jogo possui erros, por favor verique seu 'board' e o-ajuste!");
+            System.out.println();
         } else {
+            System.out.println();
             System.out.println("Você ainda precisa preencher algum espaço!");
+            System.out.println();
         }
 
     }
@@ -201,6 +237,7 @@ public class Main {
     // Metodo utilitário para 'pegar' numeros válidos!
     public static int runUntilGetNumberValid(final int mini, final int maxin) {
         var currentNumber = scanner.nextInt();
+
         while(currentNumber < mini || currentNumber > maxin) {
             System.out.printf("Informe um número entre %s e %s", mini, maxin);
             currentNumber = scanner.nextInt();
@@ -208,10 +245,4 @@ public class Main {
         }
         return currentNumber;
     }
-
-
-
-
-
-
 }
