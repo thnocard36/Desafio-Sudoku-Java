@@ -7,6 +7,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(final Dimension dimension, final JPanel mainPanel) {
         super("Sudoko 2025"); // Titulo
+        this.setSize(dimension);
         this.setPreferredSize(dimension);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);

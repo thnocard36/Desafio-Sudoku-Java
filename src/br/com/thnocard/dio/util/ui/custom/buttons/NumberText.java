@@ -7,6 +7,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
+import static java.awt.Font.PLAIN;
+
 public class NumberText extends JTextField {
 
     private final Spaces spaces;
@@ -17,7 +19,7 @@ public class NumberText extends JTextField {
         this.setSize(dimension);
         this.setPreferredSize(dimension);
         this.setVisible(true);
-        this.setFont(new Font("Arial", Font.PLAIN, 20));
+        this.setFont(new Font("Arial", PLAIN, 20));
         this.setHorizontalAlignment(CENTER);
         this.setDocument(new NumberTextLimiter());
         this.setEnabled(!spaces.isFixed());
@@ -32,6 +34,7 @@ public class NumberText extends JTextField {
             public void insertUpdate(DocumentEvent e) {
                 changeSpaces();
             }
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 changeSpaces();
@@ -47,6 +50,7 @@ public class NumberText extends JTextField {
                     spaces.clearSpaces();
                     return;
                 }
+                spaces.setActualStage(Integer.parseInt(getText()));
             }
 
         });
